@@ -1,6 +1,11 @@
+import Navbar from "@/components/navbar";
 
 export default function Home() {
   return (
-    <h1>red</h1>
+    <main className="h-screen">
+      <div className="w-full h-full bg-gray">
+        <Navbar />
+      </div>
+    </main>
   )
 }
