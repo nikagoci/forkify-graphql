@@ -1,6 +1,6 @@
 const ResultSide = () => {
   return (
-    <div className="basis-2/3">ResultSide</div>
+    <div className="basis-3/5">ResultSide</div>
   )
 }
 

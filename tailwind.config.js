@@ -10,8 +10,9 @@ module.exports = {
       colors: {
         orange: '#ff9319',
         red_orange: '#f38e82',
-        brown: '#655A56',
-        gray: '#f9f5f3'
+        light_brown: '#655A56',
+        gray: '#f9f5f3',
+        brown: '#918581'
       },
       backgroundImage: {
         orange_to_red: 'linear-gradient(to right bottom,#fbdb89,#f48982)'
