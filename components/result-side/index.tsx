@@ -2,6 +2,7 @@ import Image from "next/image";
 import RecipeDetails from "./recipe-details";
 import ServingTime from "./serving-time";
 import RecipeIngredients from "./recipe-ingredients";
+import RecipeCook from "./recipe-cook";
 
 const recipe = {
   id: "1",
@@ -20,6 +21,7 @@ const ResultSide = () => {
         <RecipeDetails recipe={recipe} />
         <ServingTime />
         <RecipeIngredients ingredients={recipe.ingredients} />
+        <RecipeCook publisher_url={recipe.publisher_url} publisher={recipe.publisher} />
       </div>
     </div>
   );
