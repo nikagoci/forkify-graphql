@@ -1,11 +1,12 @@
 import Image from "next/image";
 import RecipeDetails from "./recipe-details";
 import ServingTime from "./serving-time";
+import RecipeIngredients from "./recipe-ingredients";
 
 const recipe = {
   id: "1",
   publisher: "101 Cookbok",
-  ingredients: ["bla1", "bla2", "bla3", "bla4"],
+  ingredients: ["bla1adssssssssssssssssssssssssss", "blaadsssssssssss2", "blaasddd3", "baa aaaa asad ddddddddddddddddd ddddddd4"],
   image_url:
     "http://forkify-api.herokuapp.com/images/best_pizza_dough_recipe1b20.jpg",
   publisher_url: "http://www.101cookbooks.com",
@@ -18,6 +19,7 @@ const ResultSide = () => {
       <div>
         <RecipeDetails recipe={recipe} />
         <ServingTime />
+        <RecipeIngredients ingredients={recipe.ingredients} />
       </div>
     </div>
   );
