@@ -5,7 +5,7 @@ import Favorites from "./favorites";
 
 const Navbar = () => {
   return (
-    <div className="flex justify-between px-8 py-6 navbar bg-base-100">
+    <div className="flex justify-between px-8 py-6 navbar">
       <Image
         src="/images/logo.png"
         alt="forkify"

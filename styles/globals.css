@@ -9,3 +9,7 @@ body {
   background-repeat: no-repeat;
   height: 100vh; 
 }
+
+.header-height{
+  height: calc(100vh - 96px);
+}
