@@ -7,7 +7,7 @@ interface Props {
 
 const RecipeCook = ({ publisher_url, publisher }: Props) => {
   return (
-    <div className="flex flex-col items-center justify-center py-8 gap-y-6 ">
+    <div className="flex flex-col items-center justify-center py-8 gap-y-6 bg-gray ">
       <h2 className="text-lg font-bold text-center text-orange">
         HOW TO COOK IT
       </h2>

@@ -5,10 +5,12 @@ import { useQuery } from '@apollo/client'
 import { GET_RECIPES } from '@/libs/graphql/queries'
 
 const Header = () => {
-  const { data, loading, error } = useQuery(GET_RECIPES)
+  const { data, loading, error } = useQuery(GET_RECIPES, {
+    variables: {skip: 0, take: 7}
+  })
 
   if(loading){
-    return <h1>Loading</h1>
+    return <h1>Loding</h1>
   }
 
   if(error){

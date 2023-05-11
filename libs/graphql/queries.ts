@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_RECIPES = gql`
-  {
-    Recipes {
+  query getRecipes($skip: Int, $take: Int){
+    Recipes(skip: $skip, take: $take) {
       id
       publisher
       source_url

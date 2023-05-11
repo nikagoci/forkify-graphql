@@ -21,7 +21,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    Recipes: [Recipe]
+    Recipes(skip: Int, take: Int): [Recipe]
     Recipe(id: String): Recipe
   }
 
@@ -48,8 +48,9 @@ type addProductArgs = {
 
 const resolvers = {
   Query: {
-    Recipes: (_parent: Recipe, _args: {}, _context: {}) => {
-      return prisma.recipes.findMany();
+    Recipes: (_parent: Recipe, _args: {skip: number, take: number}, _context: {}) => {
+      const {skip, take} = _args;
+      return prisma.recipes.findMany({skip, take});
     },
     Recipe: (_parent: Recipe, _args: { id: string }, _context: {}) => {
       const { id } = _args;
