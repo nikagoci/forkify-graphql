@@ -16,10 +16,10 @@ const RecipeCook = ({ publisher_url, publisher }: Props) => {
         <span className="font-bold">{publisher}</span>. Please check out
         directions at their website.
       </p>
-      <button className="gap-2 text-xs border-none rounded-3xl bg-orange_to_red btn">
+      <a href={publisher_url} target='_blank' className="gap-2 text-xs border-none rounded-3xl bg-orange_to_red btn">
         DIRECTIONS
         <AiOutlineArrowRight size={16} />
-      </button>
+      </a>
     </div>
   );
 };

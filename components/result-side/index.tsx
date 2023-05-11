@@ -1,4 +1,3 @@
-import Image from "next/image";
 import RecipeDetails from "./recipe-details";
 import ServingTime from "./serving-time";
 import RecipeIngredients from "./recipe-ingredients";
@@ -16,7 +15,7 @@ const recipe = {
 
 const ResultSide = () => {
   return (
-    <div className="basis-3/5">
+    <div className="h-full basis-3/5 bg-gray md:basis-[70%] ">
       <div>
         <RecipeDetails recipe={recipe} />
         <ServingTime />

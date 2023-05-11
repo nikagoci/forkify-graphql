@@ -7,7 +7,7 @@ const SearchBar = () => {
         <input
           type="text"
           placeholder="Search…"
-          className="focus:outline-none input input-bordered focus:shadow-lg"
+          className="w-32 sm:w-64 lg:w-96 focus:outline-none input input-bordered focus:shadow-lg"
         />
         <button className="border-none btn btn-square bg-orange_to_red ">
           <svg
