@@ -25,7 +25,7 @@ const typeDefs = gql`
     }
 
     type Mutation {
-        addRecipe(publisher: String, source_url: String, image_url: String, social_rank: Int, title: String): Recipe
+        addRecipe(publisher: String, source_url: String, ingredients: [String], image_url: String, social_rank: Int, title: String): Recipe
     }
     
 ` 
@@ -36,6 +36,7 @@ type addProductArgs = {
     image_url: string;
     social_rank: number;
     title: string;
+    ingredients: string[]
 }
 
 const resolvers = {
@@ -46,9 +47,9 @@ const resolvers = {
     },
     Mutation: {
         addRecipe: (_parent: Recipe, _args: addProductArgs, _context: {}) => {
-            const { publisher, source_url, image_url, social_rank, title } = _args;
+            const { publisher, source_url, image_url, social_rank, title, ingredients } = _args;
 
-            return prisma.recipes.create( { data: { publisher, social_rank, source_url, image_url, title } })
+            return prisma.recipes.create( { data: { publisher, social_rank, source_url, image_url, title, ingredients } })
         }
     }
 }
