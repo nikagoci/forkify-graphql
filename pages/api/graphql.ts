@@ -1,5 +1,5 @@
 import prisma from "@/libs/prisma";
-import {gql, ApolloServer} from 'apollo-server-micro'
+import { gql, ApolloServer } from "apollo-server-micro";
 
 // id          String   @id @default(auto()) @map("_id") @db.ObjectId
 // publisher   String
@@ -10,54 +10,81 @@ import {gql, ApolloServer} from 'apollo-server-micro'
 // title       String   @unique
 
 const typeDefs = gql`
-    type Recipe {
-        id: String
-        publisher: String
-        ingredients: [String]
-        source_url: String
-        image_url: String
-        social_rank: Int
-        title: String
-    }
+  type Recipe {
+    id: String
+    publisher: String
+    ingredients: [String]
+    source_url: String
+    image_url: String
+    social_rank: Int
+    title: String
+  }
 
-    type Query {
-        Recipes: [Recipe]
-    }
+  type Query {
+    Recipes: [Recipe]
+    Recipe(id: String): Recipe
+  }
 
-    type Mutation {
-        addRecipe(publisher: String, source_url: String, ingredients: [String], image_url: String, social_rank: Int, title: String): Recipe
-    }
-    
-` 
+  type Mutation {
+    addRecipe(
+      publisher: String
+      source_url: String
+      ingredients: [String]
+      image_url: String
+      social_rank: Int
+      title: String
+    ): Recipe
+  }
+`;
 
 type addProductArgs = {
-    publisher: string;
-    source_url: string;
-    image_url: string;
-    social_rank: number;
-    title: string;
-    ingredients: string[]
-}
+  publisher: string;
+  source_url: string;
+  image_url: string;
+  social_rank: number;
+  title: string;
+  ingredients: string[];
+};
 
 const resolvers = {
-    Query: {
-        Recipes: (_parent: Recipe, _args: {}, _context: {}) => {
-            return prisma.recipes.findMany()
-        }
+  Query: {
+    Recipes: (_parent: Recipe, _args: {}, _context: {}) => {
+      return prisma.recipes.findMany();
     },
-    Mutation: {
-        addRecipe: (_parent: Recipe, _args: addProductArgs, _context: {}) => {
-            const { publisher, source_url, image_url, social_rank, title, ingredients } = _args;
+    Recipe: (_parent: Recipe, _args: { id: string }, _context: {}) => {
+      const { id } = _args;
+      return prisma.recipes.findUnique({ where: { id } });
+    },
+  },
+  Mutation: {
+    addRecipe: (_parent: Recipe, _args: addProductArgs, _context: {}) => {
+      const {
+        publisher,
+        source_url,
+        image_url,
+        social_rank,
+        title,
+        ingredients,
+      } = _args;
 
-            return prisma.recipes.create( { data: { publisher, social_rank, source_url, image_url, title, ingredients } })
-        }
-    }
-}
+      return prisma.recipes.create({
+        data: {
+          publisher,
+          social_rank,
+          source_url,
+          image_url,
+          title,
+          ingredients,
+        },
+      });
+    },
+  },
+};
 
-const apolloServer = new ApolloServer({typeDefs, resolvers})
+const apolloServer = new ApolloServer({ typeDefs, resolvers });
 
-const handler = apolloServer.createHandler( { path: '/api/graphql' })
+const handler = apolloServer.createHandler({ path: "/api/graphql" });
 
-export const config = { api: {bodyParser: false} }
+export const config = { api: { bodyParser: false } };
 
 export default handler;
