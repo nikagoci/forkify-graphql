@@ -13,6 +13,7 @@ const SingleRecipe = ({recipe}: Props) => {
             className="w-16 h-16 rounded-full"
             width={64}
             height={64}
+            loader={() => recipe.image_url}
           />
           <div>
             <h3 className="w-40 font-normal capitalize truncate text-orange">{recipe.title}</h3>
