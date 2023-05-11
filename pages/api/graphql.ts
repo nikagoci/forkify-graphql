@@ -20,8 +20,13 @@ const typeDefs = gql`
     title: String
   }
 
+  type RecipesWithTotalCount {
+    recipes: [Recipe]
+    totalCount: Int
+  }
+
   type Query {
-    Recipes(skip: Int, take: Int): [Recipe]
+    Recipes(skip: Int, take: Int): RecipesWithTotalCount
     Recipe(id: String): Recipe
   }
 
@@ -48,9 +53,17 @@ type addProductArgs = {
 
 const resolvers = {
   Query: {
-    Recipes: (_parent: Recipe, _args: {skip: number, take: number}, _context: {}) => {
+    Recipes: async(_parent: Recipe, _args: {skip: number, take: number}, _context: {}) => {
       const {skip, take} = _args;
-      return prisma.recipes.findMany({skip, take});
+
+      const [totalCount, recipes] = await prisma.$transaction([
+        prisma.recipes.count(),
+        prisma.recipes.findMany({skip, take})
+      ])
+
+
+      return {recipes, totalCount}
+      // return prisma.recipes.findMany({skip, take});
     },
     Recipe: (_parent: Recipe, _args: { id: string }, _context: {}) => {
       const { id } = _args;

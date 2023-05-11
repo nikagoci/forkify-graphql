@@ -3,12 +3,16 @@ import { gql } from "@apollo/client";
 export const GET_RECIPES = gql`
   query getRecipes($skip: Int, $take: Int){
     Recipes(skip: $skip, take: $take) {
-      id
-      publisher
-      source_url
-      image_url
-      social_rank
-      title
+      recipes {
+        id
+        publisher
+        ingredients
+        source_url
+        image_url
+        social_rank
+        title
+      }
+      totalCount
     }
   }
 `;
