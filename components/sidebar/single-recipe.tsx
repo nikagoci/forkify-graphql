@@ -1,19 +1,26 @@
+import {Dispatch, SetStateAction} from 'react'
 import Image from "next/image";
 import { useRouter } from "next/router";
 
 interface Props {
   recipe: Recipe;
+  px?: boolean
+  setShowMenu?: Dispatch<SetStateAction<boolean>>
 }
 
-const SingleRecipe = ({ recipe }: Props) => {
+const SingleRecipe = ({ recipe, px, setShowMenu }: Props) => {
   const router = useRouter()
 
   const handleClick = () => {
     router.push(`?recipe=${recipe.id}`)
+    
+    if(setShowMenu){
+      setShowMenu(false)
+    }
   }
 
   return (
-    <div onClick={handleClick} className="flex items-center justify-center w-full py-2 transition duration-200 cursor-pointer hover:-translate-y-2 hover:bg-gray gap-x-4">
+    <div onClick={handleClick} className={`${px ? 'px-16' : ''} flex items-center justify-center w-full py-2 transition duration-200 cursor-pointer hover:-translate-y-2 hover:bg-gray gap-x-4`}>
       <Image
         src={recipe.image_url}
         alt={recipe.title}

@@ -1,7 +1,7 @@
 import { createContext, useReducer, ReactNode} from 'react'
 import reducer from './reducer'
 
-const initialState = {
+const initialState: ValueInterface = {
     page: 1,
     recipes: [],
     increasePage: () => {},
@@ -14,7 +14,7 @@ export const Context = createContext(initialState)
 
 interface ValueInterface {
     page: number
-    recipes: []
+    recipes: Recipe[]
     increasePage: () => void
     decreasePage: () => void
     addToFavorites: (recipe: Recipe) => void
