@@ -7,7 +7,7 @@ body {
   background-image: linear-gradient(to right bottom, #FBDB89, #F48982);
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100vh; 
+  height: 100%;
 }
 
 .header-height{

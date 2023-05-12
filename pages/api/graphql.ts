@@ -57,7 +57,7 @@ const resolvers = {
       const {skip, take, info} = _args;
 
       const [totalCount, recipes] = await prisma.$transaction([
-        prisma.recipes.count(),
+        prisma.recipes.count({where: { title: {contains: info, mode: 'insensitive'} }}),
         prisma.recipes.findMany( {skip, take, where: { title: { contains: info, mode: 'insensitive'  } }})
       ])
 

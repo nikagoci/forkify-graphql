@@ -14,8 +14,11 @@ const ResultSide = () => {
   const [recipeId, setRecipeId] = useState("");
   const router = useRouter();
 
+
   const { data, loading, error } = useQuery< {Recipe: Recipe} >(GET_SINGLE_RECIPE, {
     variables: { id: recipeId },
+    skip: !recipeId 
+
   });
 
 
@@ -52,8 +55,8 @@ const ResultSide = () => {
   }
 
   if(!data){
-    router.push("/error");
-    return <div />;
+    // router.push("/error");
+    return <div className="flex  justify-center pt-12 h-full basis-3/5 bg-gray md:basis-[70%] "></div>
   }
 
   if (error && recipeId && !data) {
