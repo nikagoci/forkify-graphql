@@ -11,6 +11,17 @@ const reducer = (state: any, action: any) => {
                 ...state,
                 page: state.page - 1
             }
+        case "ADD_TO_FAVORITES": 
+            return {
+                ...state,
+                recipes: [...state.recipes, action.payload]
+            }
+
+        case "REMOVE_FROM_FAVORITES":
+            return {
+                ...state,
+                recipes: state.recipes.filter((recipe: Recipe)  => recipe.id !== action.payload)
+            }
     }
 }
 

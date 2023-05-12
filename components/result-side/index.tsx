@@ -12,7 +12,7 @@ import Spinner from "../shared/spinner";
 
 const ResultSide = () => {
   const [recipeId, setRecipeId] = useState("");
-  const { data, loading, error } = useQuery(GET_SINGLE_RECIPE, {
+  const { data, loading, error } = useQuery< {Recipe: Recipe} >(GET_SINGLE_RECIPE, {
     variables: { id: recipeId },
   });
 
@@ -46,19 +46,24 @@ const ResultSide = () => {
     );
   }
 
-  if (error && recipeId) {
+  if(!data){
+    router.push("/error");
+    return <div />;
+  }
+
+  if (error && recipeId && !data) {
     router.push("/error");
     return <div />;
   }
 
   return (
     <div className="h-full basis-3/5 bg-gray md:basis-[70%] ">
-      <RecipeDetails recipe={data?.Recipe} />
-      <ServingTime />
-      <RecipeIngredients ingredients={data?.Recipe?.ingredients} />
+      <RecipeDetails recipe={data.Recipe} />
+      <ServingTime recipe={data.Recipe} />
+      <RecipeIngredients ingredients={data.Recipe.ingredients} />
       <RecipeCook
-        publisher_url={data?.Recipe?.publisher_url}
-        publisher={data?.Recipe?.publisher}
+        publisher_url={data.Recipe.publisher_url}
+        publisher={data.Recipe.publisher}
       />
     </div>
   );
