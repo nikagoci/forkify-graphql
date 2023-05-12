@@ -12,11 +12,12 @@ import Spinner from "../shared/spinner";
 
 const ResultSide = () => {
   const [recipeId, setRecipeId] = useState("");
+  const router = useRouter();
+
   const { data, loading, error } = useQuery< {Recipe: Recipe} >(GET_SINGLE_RECIPE, {
     variables: { id: recipeId },
   });
 
-  const router = useRouter();
 
   useEffect(() => {
     const { recipe } = router.query as { recipe: string | undefined };
@@ -25,7 +26,11 @@ const ResultSide = () => {
     }
   }, [router.query.recipe]);
 
-  if (loading) {
+  if(loading && !recipeId){
+    return <div />
+  }
+
+  if (loading && recipeId) {
     return (
       <div className="flex justify-center pt-12 h-full basis-3/5 bg-gray md:basis-[70%] ">
         <Spinner />

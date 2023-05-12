@@ -1,15 +1,35 @@
-import React from "react";
+import { Context } from "@/context";
+import { FormEvent, useContext, useState } from "react";
 
 const SearchBar = () => {
+  const { addSearchValue } = useContext(Context);
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    addSearchValue(searchValue);
+
+    setSearchValue("");
+  };
+
   return (
     <div className="form-control">
-      <div className="transition duration-200 input-group">
+      <form
+        onSubmit={handleSubmit}
+        className="transition duration-200 input-group"
+      >
         <input
           type="text"
           placeholder="Search…"
           className="w-32 sm:w-64 lg:w-96 focus:outline-none input input-bordered focus:shadow-lg"
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
         />
-        <button className="border-none btn btn-square bg-orange_to_red ">
+        <button
+          type="submit"
+          className="border-none btn btn-square bg-orange_to_red "
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-6 h-6"
@@ -25,7 +45,7 @@ const SearchBar = () => {
             />
           </svg>
         </button>
-      </div>
+      </form>
     </div>
   );
 };

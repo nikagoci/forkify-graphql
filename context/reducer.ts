@@ -22,6 +22,11 @@ const reducer = (state: any, action: any) => {
                 ...state,
                 recipes: state.recipes.filter((recipe: Recipe)  => recipe.id !== action.payload)
             }
+        case "ADD_SEARCH_VALUE": 
+            return {
+                ...state,
+                search: action.payload
+            } 
     }
 }
 

@@ -6,38 +6,32 @@ import { GET_RECIPES } from "@/libs/graphql/queries";
 import Sidebar from "../sidebar";
 import ResultSide from "../result-side";
 import Spinner from "./spinner";
+import { useRouter } from "next/router";
 
 const RECIPE_PER_PAGE = 7;
 
 const Header = () => {
-  const { page } = useContext(Context);
+  const { page, search } = useContext(Context);
+  const router = useRouter()
 
   const skip = RECIPE_PER_PAGE * page - 1;
 
   const { data, loading, error } = useQuery(GET_RECIPES, {
-    variables: { skip, take: RECIPE_PER_PAGE },
+    variables: { skip, take: RECIPE_PER_PAGE, info: search },
   });
 
-  if (loading) {
-    return (
-      <header className="flex w-full header-height">
-        <div className="flex pt-12 justify-center basis-2/5 md:basis-[30%] bg-white">
-          <Spinner />
-        </div>
-      </header>
-    );
-  }
-
   if (error) {
-    return <h1>error</h1>;
+    router.push('/error')
+    return <div />;
   }
 
   return (
     <header className="flex w-full header-height">
       <Sidebar
-        recipes={data.Recipes.recipes}
-        totalCount={data.Recipes.totalCount}
+        recipes={data?.Recipes.recipes}
+        totalCount={data?.Recipes.totalCount}
         RECIPE_PER_PAGE={RECIPE_PER_PAGE}
+        loading={loading}
       />
       <ResultSide />
     </header>
